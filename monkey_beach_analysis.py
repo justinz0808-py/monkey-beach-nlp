@@ -2,7 +2,8 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 
-# ── 1. Load the book ──────────────────────────────────────────────
+# Looks through the json file and grabs the text. Reminder to append white spaces !
+
 pages = []
 with open("monkey_beach_pages.jsonl") as f:
     for line in f:
@@ -10,7 +11,8 @@ with open("monkey_beach_pages.jsonl") as f:
         if obj["text"].strip():
             pages.append(obj)
 
-# ── 2. Define semantic fields ─────────────────────────────────────
+# Define words the nlp detects
+
 land_words = [
     "water", "inlet", "salmon", "cedar", "shore", "kitamaat",
     "ocean", "forest", "tide", "beach", "river", "mountain",
@@ -24,7 +26,8 @@ fp_words = [
     "prayer", "song", "mask"
 ]
 
-# ── 3. Count occurrences per page ─────────────────────────────────
+# Counting amount of words per page
+
 land_counts = []
 fp_counts = []
 page_nums = []
@@ -40,14 +43,16 @@ for page in pages:
     fp_counts.append(fp_count)
     page_nums.append(page["page"])
 
-# ── 4. Smooth with rolling average ───────────────────────────────
+# Rolling avg PER PAGE
+
 def rolling_avg(data, window=10):
     return np.convolve(data, np.ones(window) / window, mode="same")
 
 land_smooth = rolling_avg(land_counts)
 fp_smooth   = rolling_avg(fp_counts)
 
-# ── 5. Plot ───────────────────────────────────────────────────────
+# Plot values
+
 plt.figure(figsize=(14, 6))
 
 plt.plot(page_nums, land_smooth, label="Land / Place Language",
