@@ -26,6 +26,12 @@ fp_words = [
     "prayer", "song", "mask"
 ]
 
+colonial_words = [
+    "church", "school", "beer", "drunk", "drug", "welfare",
+    "government", "police", "white", "christian", "alcohol",
+    "reserve", "residential", "pill", "addict"
+]
+
 # Counting amount of words per page
 
 land_counts = []
